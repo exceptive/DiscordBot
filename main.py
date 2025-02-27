@@ -4,11 +4,17 @@ class Client(discord.Client):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
 
+    
+    async def on_member_join(self, member):
+        channel = discord.utils.get(member.guild.text_channels, name="welcome")
+        if channel:
+            await channel.send(f"Welcome {member} to the server! Please checkout the https://discord.com/channels/1343680676792111196/1343681197754286143 for more rules and more")
+        else:
+            print("No 'welcome' channel found.")
+
     async def on_message(self, message):
         if message.author == self.user:
             return
-        if message.content.startswith('hello'):
-            await message.channel.send(f'hello {message.author}! Welcome to the server! Please checkout the https://discord.com/channels/1343680676792111196/1343681197754286143 for more rules and more')
 
         # sends a message when someone reacts to a message (not practical might be removed)
     async def on_reaction_add(self, reaction, user):
