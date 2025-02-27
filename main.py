@@ -18,20 +18,15 @@ class Client(discord.Client):
     async def on_message_edit(self, before, after):
         await before.channel.send('This messages content was edited')
     
-      # sends message if a member leaves the server
-        async def on_member_remove(member):
-            print(f"{member.name} left the server.")  # Debugging line
-
-            channel = discord.utils.get(member.guild.text_channels, name="general")
-            if channel:
-                await channel.send(f"{member.name} has left the server. 😢")
-            else:
-             print("No 'goodbye' channel found.")
-
-
+        # message logger in logs
+    async def on_message_delete(self, message):
+        log_channel = discord.utils.get(message.guild.text_channels, name="logs")
+        if log_channel:
+            await log_channel.send(f"Message from {message.author} was deleted. The message was: {message.content}")
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
 
 
 client = Client(intents=intents)
