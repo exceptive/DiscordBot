@@ -37,4 +37,3 @@ intents.members = True
 
 client = Client(intents=intents)
 client.run('MTM0MzY3OTY5ODczOTEzODU2MA.GmympK.1riW1xn9-77RD9E_7d_choeQdyDoJOqy93_E0s')
-
