@@ -41,13 +41,13 @@ class Client(commands.Bot):
     async def on_message_edit(self, before, after):
         log_channel = discord.utils.get(before.guild.text_channels, name="logs")
         if log_channel:
-         await log_channel.send(f'a message has been edited by {before.author} was "{before.content}" and now is "{after.content}"')
+         await log_channel.send(f'a message has been edited by {before.author.mention} was "{before.content}" and now is "{after.content}"')
     
         # message logger in logs
     async def on_message_delete(self, message):
         log_channel = discord.utils.get(message.guild.text_channels, name="logs")
         if log_channel:
-            await log_channel.send(f"Message from {message.author} was deleted. The message was: {message.content}")
+            await log_channel.send(f"Message from {message.author.mention} was deleted. The message was: {message.content}")
 
 
 intents = discord.Intents.default()
