@@ -47,6 +47,7 @@ intents.message_content = True
 intents.members = True
 client = Client(command_prefix="!", intents=intents)
 
+ ## slash commands
 GUILD_ID = discord.Object(id=1343680676792111196) # SERVERS ID
 
 @client.tree.command(name="hello", description="Say Hello", guild=GUILD_ID)  #tree commands or slash commands have to be named in lowercase
@@ -57,4 +58,8 @@ async def hello(interaction: discord.Interaction):
 async def hello(interaction: discord.Interaction, printer: str):
     await interaction.response.send_message(printer)
 
+@client.tree.command(name="embed", description="embed demo", guild=GUILD_ID) 
+async def hello(interaction: discord.Interaction):
+    embed = discord.Embed(title="8BRC check", url="https://www.rolimons.com/item/10159600649", description="views current statistics on 8brc", color=discord.Color.dark_purple())
+    await interaction.response.send_message(embed=embed)
 client.run('MTM0MzY3OTY5ODczOTEzODU2MA.GmympK.1riW1xn9-77RD9E_7d_choeQdyDoJOqy93_E0s')
