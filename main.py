@@ -16,7 +16,6 @@ class Client(commands.Bot):
             print(f"Error syncing commands: {e}")
 
 
-    
     async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name="welcome")
         if channel:
@@ -104,9 +103,7 @@ async def limited(interaction: discord.Interaction, item_id: str):
     acronym = item[1]  # Acronym 
     rap = item[2]  # Recent Average Price
     value = item[3]  # Market Value
-    best_price = item[4]  # best price is not working.
     demand = demand_mapping.get(item[5], "Unknown")  # Converts the demand, with the mapping above
-    available_copies = item[6]  # Copies Available
 
     thumbnail_url = f"https://www.rolimons.com/thumbs/{item_id}.png"
     item_url = f"https://www.rolimons.com/item/{item_id}"
@@ -119,9 +116,7 @@ async def limited(interaction: discord.Interaction, item_id: str):
     embed.set_thumbnail(url=thumbnail_url)
     embed.add_field(name="Value", value=f"{value:,}" if value != -1 else "N/A", inline=False)
     embed.add_field(name="RAP", value=f"{rap:,}", inline=False)
-    embed.add_field(name="Best Price", value=f"{best_price:,}" if best_price != -1 else "N/A", inline=False)
     embed.add_field(name="Demand", value=demand, inline=False)
-    embed.add_field(name="Available Copies", value=f"{available_copies:,}", inline=False)
     embed.add_field(name="Acronym", value=acronym, inline=False)
     embed.set_footer(text="Data from Rolimons")
     embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar.url if interaction.user.avatar else None)
