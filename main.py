@@ -1,8 +1,19 @@
 import discord
+from discord.ext import commands
+from discord import app_commands
 
-class Client(discord.Client):
+class Client(commands.Bot):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
+
+        try:
+            guild = discord.Object(id=1343680676792111196)
+            synced = await self.tree.sync(guild=guild)
+            print(f'Synced {len(synced)} commands to guild {guild.id}')
+
+        except Exception as e:
+            print(f"Error syncing commands: {e}")
+
 
     
     async def on_member_join(self, member):
@@ -30,10 +41,17 @@ class Client(discord.Client):
         if log_channel:
             await log_channel.send(f"Message from {message.author} was deleted. The message was: {message.content}")
 
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
+client = Client(command_prefix="!", intents=intents)
+
+GUILD_ID = discord.Object(id=1343680676792111196) # SERVERS ID
+
+@client.tree.command(name="hello", description="Say Hello", guild=GUILD_ID)  #tree commands or slash commands have to be named in lowercase
+async def hello(interaction: discord.Interaction):
+    await interaction.response.send_message("Why are you using this command?")
 
 
-client = Client(intents=intents)
 client.run('MTM0MzY3OTY5ODczOTEzODU2MA.GmympK.1riW1xn9-77RD9E_7d_choeQdyDoJOqy93_E0s')
