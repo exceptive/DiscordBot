@@ -53,5 +53,8 @@ GUILD_ID = discord.Object(id=1343680676792111196) # SERVERS ID
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message("Why are you using this command?")
 
+@client.tree.command(name="printer", description="i will print whatever you give me", guild=GUILD_ID)  #tree commands or slash commands have to be named in lowercase
+async def hello(interaction: discord.Interaction, printer: str):
+    await interaction.response.send_message(printer)
 
 client.run('MTM0MzY3OTY5ODczOTEzODU2MA.GmympK.1riW1xn9-77RD9E_7d_choeQdyDoJOqy93_E0s')
